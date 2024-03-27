@@ -110,7 +110,7 @@ if __name__ == "__main__":
         ret = rknn.accuracy_analysis(
             inputs=["./COCO/subset/000000005001.jpg"],
             target=platform,
-            device_id="99ce62f3843fc38c",
+            device_id=device_serial,
         )
     else:
         print("No connected ADB devices found")
