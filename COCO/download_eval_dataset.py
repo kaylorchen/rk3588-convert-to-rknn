@@ -39,43 +39,46 @@ def show_progress(blocknum, blocksize, totalsize):
     recv_size = blocknum * blocksize
 
     f = sys.stdout
-    progress = (recv_size / totalsize)
+    progress = recv_size / totalsize
     progress_str = "{:.2f}%".format(progress * 100)
     n = round(progress * 50)
-    s = ('#' * n).ljust(50, '-')
-    f.write(progress_str.ljust(8, ' ') + '[' + s + ']' + speed_str)
+    s = ("#" * n).ljust(50, "-")
+    f.write(progress_str.ljust(8, " ") + "[" + s + "]" + speed_str)
     f.flush()
-    f.write('\r\n')
+    f.write("\r\n")
 
 
 def download(file_name, url_path):
     if not os.path.exists(file_name):
-        print('--> Download {}'.format(file_name))
+        print("--> Download {}".format(file_name))
         download_file = file_name
         try:
             urllib.request.urlretrieve(url_path, download_file, show_progress)
         except:
-            print('Download {} failed.'.format(download_file))
+            print("Download {} failed.".format(download_file))
             print(traceback.format_exc())
             exit(-1)
-        print('done')
+        print("done")
 
-if __name__ == '__main__':
-    eval_img_dataset_url = 'http://images.cocodataset.org/zips/val2017.zip'
-    dataset_name = 'val2017.zip'
+
+if __name__ == "__main__":
+    eval_img_dataset_url = "http://images.cocodataset.org/zips/val2017.zip"
+    dataset_name = "val2017.zip"
     start_time = time.time()
     download(dataset_name, eval_img_dataset_url)
     un_zip(dataset_name)
 
-    annotation_url = 'http://images.cocodataset.org/annotations/annotations_trainval2017.zip'
-    annotation_name = 'annotations_trainval2017.zip'
+    annotation_url = (
+        "http://images.cocodataset.org/annotations/annotations_trainval2017.zip"
+    )
+    annotation_name = "annotations_trainval2017.zip"
     start_time = time.time()
     download(annotation_name, annotation_url)
     un_zip(annotation_name)
 
     # gen path txt for Capi benchmark test
-    src_path = 'val2017'
-    store_path_on_board = '/userdata/val2017'
-    with open('./coco_dataset_path.txt', 'w') as f:
+    src_path = "val2017"
+    store_path_on_board = "/userdata/val2017"
+    with open("./coco_dataset_path.txt", "w") as f:
         for file in os.listdir(src_path):
-            f.write(os.path.join(store_path_on_board, file)+'\n')
+            f.write(os.path.join(store_path_on_board, file) + "\n")

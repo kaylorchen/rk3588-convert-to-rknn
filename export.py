@@ -10,7 +10,8 @@ try:
     import onnxsim
 except ImportError:
     onnxsim = None
-    
+
+
 class PostSeg(nn.Module):
     export = True
     shape = None
@@ -24,10 +25,10 @@ class PostSeg(nn.Module):
         bs = p.shape[0]  # batch size
         mc = [self.cv4[i](x[i]) for i in range(self.nl)]
         x = self.forward_det(x)
-        bo = len(x)//3
+        bo = len(x) // 3
         relocated = []
         for i in range(len(mc)):
-            relocated.extend(x[i*bo:(i+1)*bo])
+            relocated.extend(x[i * bo : (i + 1) * bo])
             relocated.extend([mc[i]])
         relocated.extend([p])
         return relocated
@@ -39,12 +40,12 @@ class PostSeg(nn.Module):
             y.append(self.cv2[i](x[i]))
             y.append(self.cv3[i](x[i]))
         return y
-    
-def optim(module: nn.Module):
-    s = str(type(module))[6:-2].split(".")[-1]
-    print(str(type(module))[6:-2])
-    if s == "Segment":
-        setattr(module, "__class__", PostSeg)
+
+        def optim(module: nn.Module):
+            s = str(type(module))[6:-2].split(".")[-1]
+            print(str(type(module))[6:-2])
+            if s == "Segment":
+                setattr(module, "__class__", PostSeg)
 
 
 def parse_args():
@@ -78,10 +79,18 @@ def main(args):
     for _ in range(2):
         model(fake_input)
     save_path = args.weights.replace(".pt", ".onnx")
-    output_names = ['output0', 'output1', 'output2', 
-                            'output3', 'output4', 'output5', 
-                            'output6', 'output7', 'output8', 
-                            'proto']
+    output_names = [
+        "output0",
+        "output1",
+        "output2",
+        "output3",
+        "output4",
+        "output5",
+        "output6",
+        "output7",
+        "output8",
+        "proto",
+    ]
     with BytesIO() as f:
         torch.onnx.export(
             model,
@@ -106,4 +115,3 @@ def main(args):
 
 if __name__ == "__main__":
     main(parse_args())
-
