@@ -117,7 +117,6 @@ if __name__ == "__main__":
         print("--> Accuracy analysis")
         ret = rknn.accuracy_analysis(
             inputs=["./COCO/subset/000000005001.jpg"],
-            target=platform,
         )
 
     # Release
