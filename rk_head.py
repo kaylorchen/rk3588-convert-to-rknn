@@ -1,10 +1,11 @@
 import math
+import torch
 def detect_forward(self, x):
     shape = x[0].shape
     y = []
     for i in range(self.nl):
         y.append(self.cv2[i](x[i]))
-        y.append(self.cv3[i](x[i]))
+        y.append(torch.sigmoid(self.cv3[i](x[i])))
     return y
 
 
