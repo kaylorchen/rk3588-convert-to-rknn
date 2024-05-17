@@ -47,12 +47,15 @@ def main(args):
         "output0_box",
         "output0_class",
         "output0_kpt",
+        "output0_visibility",
         "output1_box",
         "output1_class",
         "output1_kpt",
+        "output1_visibility",
         "output2_box",
         "output2_class",
         "output2_kpt",
+        "output2_visibility",
     ]
     with BytesIO() as f:
         torch.onnx.export(
