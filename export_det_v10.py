@@ -33,7 +33,7 @@ def parse_args():
 
 
 def main(args):
-    setattr(head.v10Detect, "forward", rk_head.detect_forward)
+    setattr(head.v10Detect, "forward", rk_head.v10_detect_forward)
     YOLOv8 = YOLO(args.weights)
     model = YOLOv8.model.fuse().eval()
     model.to(args.device)

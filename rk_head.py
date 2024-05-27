@@ -17,6 +17,13 @@ def detect_forward(self, x):
         y.append(torch.sigmoid(self.cv3[i](x[i])))
     return y
 
+def v10_detect_forward(self, x):
+    y = []
+    for i in range(self.nl):
+        y.append(self.one2one_cv2[i](x[i]))
+        y.append(torch.sigmoid(self.one2one_cv3[i](x[i])))
+    return y
+
 
 def segment_forward(self, x):
     p = self.proto(x[0])  # mask protos
