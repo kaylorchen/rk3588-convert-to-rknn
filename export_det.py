@@ -44,10 +44,13 @@ def main(args):
     output_names = [
         "output0_box",
         "output0_class",
+        "output0_class_sum",
         "output1_box",
         "output1_class",
+        "output1_class_sum",
         "output2_box",
         "output2_class",
+        "output2_class_sum",
     ]
     with BytesIO() as f:
         torch.onnx.export(

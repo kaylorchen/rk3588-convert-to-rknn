@@ -14,14 +14,20 @@ def detect_forward(self, x):
     y = []
     for i in range(self.nl):
         y.append(self.cv2[i](x[i]))
-        y.append(torch.sigmoid(self.cv3[i](x[i])))
+        cls = torch.sigmoid(self.cv3[i](x[i]))
+        cls_sum = torch.clamp(cls.sum(1, keepdim=True), 0, 1)
+        y.append(cls)
+        y.append(cls_sum)
     return y
 
 def v10_detect_forward(self, x):
     y = []
     for i in range(self.nl):
         y.append(self.one2one_cv2[i](x[i]))
-        y.append(torch.sigmoid(self.one2one_cv3[i](x[i])))
+        cls = torch.sigmoid(self.one2one_cv3[i](x[i]))
+        cls_sum = torch.clamp(cls.sum(1, keepdim=True), 0, 1)
+        y.append(cls)
+        y.append(cls_sum)
     return y
 
 
