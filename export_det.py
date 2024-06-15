@@ -42,15 +42,15 @@ def main(args):
         model(fake_input)
     save_path = args.weights.replace(".pt", ".onnx")
     output_names = [
-        "output0_box",
-        "output0_class",
-        "output0_class_sum",
-        "output1_box",
-        "output1_class",
-        "output1_class_sum",
-        "output2_box",
-        "output2_class",
-        "output2_class_sum",
+        "yolov8_detect_output0_box",
+        "yolov8_detect_output0_class",
+        "yolov8_detect_output0_class_sum",
+        "yolov8_detect_output1_box",
+        "yolov8_detect_output1_class",
+        "yolov8_detect_output1_class_sum",
+        "yolov8_detect_output2_box",
+        "yolov8_detect_output2_class",
+        "yolov8_detect_output2_class_sum",
     ]
     with BytesIO() as f:
         torch.onnx.export(
