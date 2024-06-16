@@ -44,18 +44,18 @@ def main(args):
         model(fake_input)
     save_path = args.weights.replace(".pt", ".onnx")
     output_names = [
-        "output0_box",
-        "output0_class",
-        "output0_kpt",
-        "output0_visibility",
-        "output1_box",
-        "output1_class",
-        "output1_kpt",
-        "output1_visibility",
-        "output2_box",
-        "output2_class",
-        "output2_kpt",
-        "output2_visibility",
+        "yolov8_pose_output0_box",
+        "yolov8_pose_output0_class",
+        "yolov8_pose_output0_kpt",
+        "yolov8_pose_output0_visibility",
+        "yolov8_pose_output1_box",
+        "yolov8_pose_output1_class",
+        "yolov8_pose_output1_kpt",
+        "yolov8_pose_output1_visibility",
+        "yolov8_pose_output2_box",
+        "yolov8_pose_output2_class",
+        "yolov8_pose_output2_kpt",
+        "yolov8_pose_output2_visibility",
     ]
     with BytesIO() as f:
         torch.onnx.export(
