@@ -33,7 +33,7 @@ def parse_args():
 
 
 def main(args):
-    setattr(head.Detect, "forward", rk_head.detect_forward)
+    setattr(head.Detect, "forward", rk_head.pose_detect_forward)
     setattr(head.Pose, "forward", rk_head.pose_forward)
     setattr(head.Pose, "kpt_decode", rk_head.pose_kpt_decode)
     YOLOv8 = YOLO(args.weights)

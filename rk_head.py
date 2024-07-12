@@ -20,6 +20,20 @@ def detect_forward(self, x):
         y.append(cls_sum)
     return y
 
+def pose_detect_forward(self, x):
+    shape = x[0].shape
+    if self.dynamic or self.shape != shape:
+        self.anchors, self.strides = (
+            a.transpose(0, 1) for a in make_anchors(x, self.stride, 0.5)
+        )
+        self.shape = shape
+    y = []
+    for i in range(self.nl):
+        y.append(self.cv2[i](x[i]))
+        cls = torch.sigmoid(self.cv3[i](x[i]))
+        y.append(cls)
+    return y
+
 def v10_detect_forward(self, x):
     y = []
     for i in range(self.nl):
