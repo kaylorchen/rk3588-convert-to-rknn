@@ -5,6 +5,8 @@ import torch
 from ultralytics import YOLO
 from ultralytics.nn.modules import head
 import argparse
+from onnx import shape_inference
+
 
 try:
     import onnxsim
@@ -43,16 +45,19 @@ def main(args):
         model(fake_input)
     save_path = args.weights.replace(".pt", ".onnx")
     output_names = [
-        "output0_box",
-        "output0_class",
-        "output0_mask",
-        "output1_box",
-        "output1_class",
-        "output1_mask",
-        "output2_box",
-        "output2_class",
-        "output2_mask",
-        "proto",
+        "yolov8_output0_box",
+        "yolov8_output0_class",
+        "yolov8_output0_class_sum",
+        "yolov8_output0_mask",
+        "yolov8_output1_box",
+        "yolov8_output1_class",
+        "yolov8_output1_class_sum",
+        "yolov8_output1_mask",
+        "yolov8_output2_box",
+        "yolov8_output2_class",
+        "yolov8_output2_class_sum",
+        "yolov8_output2_mask",
+        "yolov8_proto",
     ]
     with BytesIO() as f:
         torch.onnx.export(
@@ -72,7 +77,7 @@ def main(args):
             assert check, "assert check failed"
         except Exception as e:
             print(f"Simplifier failure: {e}")
-    onnx.save(onnx_model, save_path)
+    onnx.save(onnx.shape_inference.infer_shapes(onnx_model), save_path)
     print(f"ONNX export success, saved as {save_path}")
 
 
