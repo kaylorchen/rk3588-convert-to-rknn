@@ -45,19 +45,19 @@ def main(args):
         model(fake_input)
     save_path = args.weights.replace(".pt", ".onnx")
     output_names = [
-        "yolo11_output0_box",
-        "yolo11_output0_class",
-        "yolo11_output0_class_sum",
-        "yolo11_output0_mask",
-        "yolo11_output1_box",
-        "yolo11_output1_class",
-        "yolo11_output1_class_sum",
-        "yolo11_output1_mask",
-        "yolo11_output2_box",
-        "yolo11_output2_class",
-        "yolo11_output2_class_sum",
-        "yolo11_output2_mask",
-        "yolo11_proto",
+        "yolo11_segment_output0_box",
+        "yolo11_segment_output0_class",
+        "yolo11_segment_output0_class_sum",
+        "yolo11_segment_output0_mask",
+        "yolo11_segment_output1_box",
+        "yolo11_segment_output1_class",
+        "yolo11_segment_output1_class_sum",
+        "yolo11_segment_output1_mask",
+        "yolo11_segment_output2_box",
+        "yolo11_segment_output2_class",
+        "yolo11_segment_output2_class_sum",
+        "yolo11_segment_output2_mask",
+        "yolo11_segment_proto",
     ]
     with BytesIO() as f:
         torch.onnx.export(
